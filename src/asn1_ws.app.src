@@ -1,0 +1,14 @@
+{application, asn1_ws,
+ [{description, "Some wireshark asn.1 files as an OTP app"},
+  {vsn, "0.0.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, []},
+  {links, []}
+ ]}.

@@ -1,0 +1,8 @@
+\#*
+.\#*
+*~
+/_build/
+/asngen/
+/include/
+/src/*.erl
+/src/*.asn1db
