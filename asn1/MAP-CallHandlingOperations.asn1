@@ -1,9 +1,7 @@
--- 3GPP TS 29.002 V14.3.0 (2017-03)
---17.6.3	Call Handling Operations
 MAP-CallHandlingOperations {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
    gsm-Network (1) modules (3) map-CallHandlingOperations (7)
-   version17 (17)}
+   version9 (9)}
 
 DEFINITIONS
 
@@ -19,8 +17,7 @@ EXPORTS
 	statusReport,
 	remoteUserFree,
 	ist-Alert,
-	ist-Command,
-	releaseResources
+	ist-Command
 ;
 
 IMPORTS
@@ -52,7 +49,7 @@ joint-iso-itu-t remote-operations(4)
 
 FROM MAP-Errors {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-Errors (10) version17 (17)}
+   gsm-Network (1) modules (3) map-Errors (10) version9 (9)}
 	SendRoutingInfoArg,
 	SendRoutingInfoRes,
 	ProvideRoamingNumberArg,
@@ -68,12 +65,10 @@ FROM MAP-Errors {
 	IST-AlertArg,
 	IST-AlertRes,
 	IST-CommandArg,
-	IST-CommandRes,
-	ReleaseResourcesArg,
-	ReleaseResourcesRes
+	IST-CommandRes
 FROM MAP-CH-DataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-CH-DataTypes (13) version17 (17)}
+   gsm-Network (1) modules (3) map-CH-DataTypes (13) version9 (9)}
 
 ;
 
@@ -199,16 +194,5 @@ ist-Command  OPERATION::= {				--Timer m
 		systemFailure |
 		facilityNotSupported}
 	CODE	local:88 }
-
-releaseResources  OPERATION::= {				--Timer m
-	ARGUMENT
-		ReleaseResourcesArg
-	RESULT
-		ReleaseResourcesRes
-		-- optional
-	ERRORS {
-		unexpectedDataValue |
-		systemFailure }
-	CODE	local:20 }
 
 END

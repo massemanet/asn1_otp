@@ -1,10 +1,9 @@
--- 3GPP TS 29.002 V14.3.0 (2017-03)
--- 17.6.5	Short message service operations
- 
+-- asn1ct:compile("MAP-ShortMessageServiceOperations",[ber_bin, {outdir, "../compiled/umts_map"}]).
+
 MAP-ShortMessageServiceOperations {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
    gsm-Network (1) modules (3) map-ShortMessageServiceOperations (9)
-   version17 (17)}
+   version9 (9)}
 
 DEFINITIONS
 
@@ -19,8 +18,7 @@ EXPORTS
 	reportSM-DeliveryStatus,
 	alertServiceCentre,
 	informServiceCentre,
-	readyForSM,
-	mt-ForwardSM-VGCS
+	readyForSM
 ;
 
 IMPORTS
@@ -45,7 +43,7 @@ joint-iso-itu-t remote-operations(4)
 	absentSubscriberSM
 FROM MAP-Errors {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-Errors (10) version17 (17)}
+   gsm-Network (1) modules (3) map-Errors (10) version9 (9)}
 
 	RoutingInfoForSM-Arg,
 	RoutingInfoForSM-Res,
@@ -58,12 +56,10 @@ FROM MAP-Errors {
 	AlertServiceCentreArg,
 	InformServiceCentreArg,
 	ReadyForSM-Arg,
-	ReadyForSM-Res,
-	MT-ForwardSM-VGCS-Arg,
-	MT-ForwardSM-VGCS-Res
+	ReadyForSM-Res
 FROM MAP-SM-DataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-SM-DataTypes (16) version17 (17)}
+   gsm-Network (1) modules (3) map-SM-DataTypes (16) version9 (9)}
 
 ;
 
@@ -97,7 +93,6 @@ mo-ForwardSM  OPERATION ::= {				--Timer ml
 	CODE	local:46 }
 
 mt-ForwardSM  OPERATION ::= {				--Timer ml
-	-- the timer value may be subject to negotiation between GMSC and IP-SM-GW
 	ARGUMENT
 		MT-ForwardSM-Arg
 	RESULT
@@ -156,17 +151,5 @@ readyForSM  OPERATION ::= {				--Timer m
 		facilityNotSupported |
 		unknownSubscriber}
 	CODE	local:66 }
-
-mt-ForwardSM-VGCS  OPERATION ::= {				--Timer ml
-	ARGUMENT
-		MT-ForwardSM-VGCS-Arg
-	RESULT
-		MT-ForwardSM-VGCS-Res
-		-- optional
-	ERRORS {
-		systemFailure |
-		unexpectedDataValue }
-	CODE	local:21 }
-
 
 END

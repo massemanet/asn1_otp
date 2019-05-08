@@ -1,9 +1,6 @@
--- 3GPP TS 29.002 V14.3.0 (2017-03)
--- 17.6.6	Errors
- 
 MAP-Errors {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-Errors (10) version17 (17)}
+   gsm-Network (1) modules (3) map-Errors (10) version9 (9)}
 
 DEFINITIONS
 
@@ -83,8 +80,7 @@ EXPORTS
 	absentSubscriberSM,
 
 	-- Group Call errors
-	noGroupCallNumberAvailable, 
-	ongoingGroupCall,
+	noGroupCallNumberAvailable,
 
 	-- location service errors
 	unauthorizedRequestingNetwork,
@@ -93,8 +89,10 @@ EXPORTS
 	unknownOrUnreachableLCSClient,
 
 	-- Mobility Management errors
-	mm-EventNotSupported
+	mm-EventNotSupported,
 
+	-- Secure transport errors
+	secureTransportError
 
 ;
 
@@ -106,7 +104,7 @@ FROM Remote-Operations-Information-Objects {joint-iso-itu-t remote-operations(4)
 	SS-Status
 FROM MAP-SS-DataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-SS-DataTypes (14) version17 (17)}
+   gsm-Network (1) modules (3) map-SS-DataTypes (14) version9 (9)}
 
 	SS-IncompatibilityCause,
 	PW-RegistrationFailureCause,
@@ -145,19 +143,19 @@ FROM MAP-SS-DataTypes {
 	UnauthorizedRequestingNetwork-Param,
 	UnauthorizedLCSClient-Param,
 	PositionMethodFailure-Param,
-UnknownOrUnreachableLCSClient-Param,
+	UnknownOrUnreachableLCSClient-Param,
 	MM-EventNotSupported-Param,
-ATSI-NotAllowedParam,
-ATM-NotAllowedParam,
-IllegalSS-OperationParam,
-SS-NotAvailableParam,
-SS-SubscriptionViolationParam,
-InformationNotAvailableParam,
-TargetCellOutsideGCA-Param,
-OngoingGroupCallParam
+	ATSI-NotAllowedParam,
+	ATM-NotAllowedParam,
+	IllegalSS-OperationParam,
+	SS-NotAvailableParam,
+	SS-SubscriptionViolationParam,
+	InformationNotAvailableParam,
+	TargetCellOutsideGCA-Param,
+	SecureTransportErrorParam
 FROM MAP-ER-DataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-ER-DataTypes (17) version17 (17)}
+   gsm-Network (1) modules (3) map-ER-DataTypes (17) version9 (9)}
 ;
 
 -- generic errors
@@ -466,12 +464,6 @@ noGroupCallNumberAvailable  ERROR ::= {
 		-- optional
 	CODE	local:50 }
 
-ongoingGroupCall  ERROR ::= {
-	PARAMETER
-		OngoingGroupCallParam
-		-- optional
-	CODE	local:22 }
-
 -- location service errors
 
 unauthorizedRequestingNetwork  ERROR ::= {
@@ -503,6 +495,13 @@ mm-EventNotSupported  ERROR ::= {
 		MM-EventNotSupported-Param
 		-- optional
 	CODE	local:59 }
+
+	-- Secure transport errors
+
+secureTransportError  ERROR ::= {
+	PARAMETER
+		SecureTransportErrorParam
+	CODE	local:4 }
 
 
 END

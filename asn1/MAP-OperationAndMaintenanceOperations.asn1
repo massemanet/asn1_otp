@@ -1,9 +1,7 @@
--- 3GPP TS 29.002 V14.3.0 (2017-03)
---17.6.2	Operation and Maintenance Operations
 MAP-OperationAndMaintenanceOperations {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
    gsm-Network (1) modules (3) map-OperationAndMaintenanceOperations (6)
-   version17 (17)}
+   version9 (9)}
 
 DEFINITIONS
 
@@ -32,7 +30,7 @@ joint-iso-itu-t remote-operations(4)
 	tracingBufferFull
 FROM MAP-Errors {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-Errors (10) version17 (17)}
+   gsm-Network (1) modules (3) map-Errors (10) version9 (9)}
 
 	ActivateTraceModeArg,
 	ActivateTraceModeRes,
@@ -40,13 +38,13 @@ FROM MAP-Errors {
 	DeactivateTraceModeRes
 FROM MAP-OM-DataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-OM-DataTypes (12) version17 (17)}
+   gsm-Network (1) modules (3) map-OM-DataTypes (12) version9 (9)}
 
 	ISDN-AddressString,
 	IMSI
 FROM MAP-CommonDataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-CommonDataTypes (18) version17 (17)}
+   gsm-Network (1) modules (3) map-CommonDataTypes (18) version9 (9)}
 ;
 
 

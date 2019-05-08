@@ -1,9 +1,6 @@
--- 3GPP TS 29.002 V14.3.0 (2017-03)
--- 17.7.8	Common data types
-
 MAP-CommonDataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-CommonDataTypes (18) version17 (17)}
+   gsm-Network (1) modules (3) map-CommonDataTypes (18) version9 (9)}
 
 DEFINITIONS
 
@@ -23,14 +20,11 @@ EXPORTS
 	ISDN-SubaddressString,
 	ExternalSignalInfo, 
 	Ext-ExternalSignalInfo, 
-AccessNetworkSignalInfo,
+	AccessNetworkSignalInfo,
 	SignalInfo,
 	maxSignalInfoLength,
 	AlertingPattern,
 	TBCD-STRING,
-	DiameterIdentity,
-	Time,
-	HLR-Id,
 
 	-- data types for numbering and identification
 	IMSI,
@@ -47,11 +41,6 @@ AccessNetworkSignalInfo,
 	NAEA-CIC, 
 	ASCI-CallReference,
 	SubscriberIdentity,
-	PLMN-Id,
-	E-UTRAN-CGI,
-	TA-Id,
-	RAIdentity,
-	NetworkNodeDiameterAddress,
 
 	-- data types for CAMEL
 	CellGlobalIdOrServiceAreaIdOrLAI, 
@@ -72,13 +61,7 @@ AccessNetworkSignalInfo,
 	AgeOfLocationInformation,
 	LCSClientExternalID,
 	LCSClientInternalID,
-	LCSServiceTypeID,
--- WS added exports needed by gsm_map.asn (extra asn1 file to handle older protocol versions)
-	ProtocolId,
-
-	-- gprs location registration types
-	GSN-Address
-
+	LCSServiceTypeID
 ;
 
 IMPORTS
@@ -86,23 +69,23 @@ IMPORTS
 	Ext-TeleserviceCode
 FROM MAP-TS-Code {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-TS-Code (19) version17 (17)}
+   gsm-Network (1) modules (3) map-TS-Code (19) version9 (9)}
 
 	BearerServiceCode,
 	Ext-BearerServiceCode
 FROM MAP-BS-Code {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-BS-Code (20) version17 (17)}
+   gsm-Network (1) modules (3) map-BS-Code (20) version9 (9)}
 
 	SS-Code
 FROM MAP-SS-Code {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-SS-Code (15) version17 (17)}
+   gsm-Network (1) modules (3) map-SS-Code (15) version9 (9)}
 
 	ExtensionContainer
 FROM MAP-ExtensionDataTypes {
    itu-t identified-organization (4) etsi (0) mobileDomain (0)
-   gsm-Network (1) modules (3) map-ExtensionDataTypes (21) version17 (17)}
+   gsm-Network (1) modules (3) map-ExtensionDataTypes (21) version9 (9)}
 ;
 
 
@@ -117,9 +100,6 @@ TBCD-STRING ::= OCTET STRING
 
 	-- bits 8765 of octet n encoding digit 2n
 	-- bits 4321 of octet n encoding digit 2(n-1) +1
-
-DiameterIdentity ::= OCTET STRING (SIZE(9..255))
--- content of DiameterIdentity is defined in IETF RFC 3588 [139]
 
 AddressString ::= OCTET STRING (SIZE (1..maxAddressLength))
 	-- This type is used to represent a number for addressing
@@ -173,7 +153,8 @@ maxISDN-AddressLength  INTEGER ::= 9
 FTN-AddressString ::= 
 			AddressString (SIZE (1..maxFTN-AddressLength))
 	-- This type is used to represent forwarded-to numbers. 
-	-- If NAI = international the first digits represent the country code (CC)
+	-- For long forwarded-to numbers (longer than 15 digits) NPI shall be unknown;
+	-- if NAI = international the first digits represent the country code (CC)
 	-- and the network destination code (NDC) as for E.164.
 
 maxFTN-AddressLength  INTEGER ::= 15
@@ -314,13 +295,6 @@ alertingCategory-5   AlertingPattern ::= '00001000'B
 	-- all other values of Alerting Category are reserved
 	-- Alerting categories are defined in GSM 02.07
 
-GSN-Address ::= OCTET STRING (SIZE (5..17))
-	-- Octets are coded according to TS 3GPP TS 23.003 [17]
-
-Time ::= OCTET STRING (SIZE (4))
-	-- Octets are coded according to IETF RFC 3588 [139]
-
-
 -- data types for numbering and identification
 
 IMSI ::= TBCD-STRING (SIZE (3..8))
@@ -337,8 +311,7 @@ IMSI-WithLMSI ::= SEQUENCE {
 	...}
 
 ASCI-CallReference ::= TBCD-STRING (SIZE (1..8))
-	-- digits of VGCS/VBS-area,Group-ID are concatenated in this order if there is a
-	-- VGCS/VBS-area.
+	-- digits of VGCS/VBC-area,Group-ID are concatenated in this order.
 
 TMSI ::= OCTET STRING (SIZE (1..4))
 
@@ -394,9 +367,7 @@ AdditionalNetworkResource ::= ENUMERATED {
 	gsmSCF (3),
 	nplr (4),
 	auc (5),
-	... ,
-	ue (6),
-	mme (7)}
+	...}
 	-- if unknown value is received in AdditionalNetworkResource
 	-- it shall be ignored.
 
@@ -408,9 +379,9 @@ NAEA-PreferredCI ::= SEQUENCE {
 
 NAEA-CIC ::= OCTET STRING (SIZE (3))
 	-- The internal structure is defined by the Carrier Identification
-	-- parameter in ANSI T1.113.3. Carrier codes between “000” and “999” may
-	-- be encoded as 3 digits using “000” to “999” or as 4 digits using 
-	-- “0000” to “0999”. Carrier codes between “1000” and “9999” are encoded
+	-- parameter in ANSI T1.113.3. Carrier codes between "000" and "999" may
+	-- be encoded as 3 digits using "000" to "999" or as 4 digits using 
+	-- "0000" to "0999". Carrier codes between "1000" and "9999" are encoded
 	-- using 4 digits.
 
 SubscriberIdentity ::= CHOICE {
@@ -528,31 +499,6 @@ serv125				LCSServiceTypeID ::= 125
 serv126				LCSServiceTypeID ::= 126
 serv127				LCSServiceTypeID ::= 127
 
-PLMN-Id ::= OCTET STRING (SIZE (3))
-	-- The internal structure is defined as follows:
-	-- octet 1 bits 4321	Mobile Country Code 1st digit
-	--         bits 8765	Mobile Country Code 2nd digit
-	-- octet 2 bits 4321	Mobile Country Code 3rd digit
-	--         bits 8765	Mobile Network Code 3rd digit
-	--			or filler (1111) for 2 digit MNCs
-	-- octet 3 bits 4321	Mobile Network Code 1st digit
-	--         bits 8765	Mobile Network Code 2nd digit
-
-E-UTRAN-CGI ::= OCTET STRING (SIZE (7))
-	-- Octets are coded as described in 3GPP TS 29.118.
-
-TA-Id ::= OCTET STRING (SIZE (5))
-	-- Octets are coded as described in 3GPP TS 29.118.
-
-RAIdentity ::= OCTET STRING (SIZE (6))
--- Routing Area Identity is coded in accordance with 3GPP TS 29.060 [105].
--- It shall contain the value part defined in 3GPP TS 29.060 only. I.e. the 3GPP TS 29.060
--- type identifier octet shall not be included.
-
-NetworkNodeDiameterAddress::= SEQUENCE {
-	diameter-Name	[0] DiameterIdentity,
-	diameter-Realm	[1] DiameterIdentity }
-
 -- data types for CAMEL
 
 CellGlobalIdOrServiceAreaIdOrLAI ::= CHOICE {
@@ -576,7 +522,7 @@ CellGlobalIdOrServiceAreaIdFixedLength ::= OCTET STRING (SIZE (7))
 	--			according to 3GPP TS 23.003
 
 LAIFixedLength ::= OCTET STRING (SIZE (5))
-	-- Refers to Location Area Identification defined in 3GPP TS 23.003 [17].
+	-- Refers to Location Area Identification defined in TS 3GPP TS 23.003 [17].
 	-- The internal structure is defined as follows:
 	-- octet 1 bits 4321	Mobile Country Code 1st digit
 	--         bits 8765	Mobile Country Code 2nd digit
@@ -585,7 +531,7 @@ LAIFixedLength ::= OCTET STRING (SIZE (5))
 	--			or filler (1111) for 2 digit MNCs
 	-- octet 3 bits 4321	Mobile Network Code 1st digit
 	--         bits 8765	Mobile Network Code 2nd digit
-	-- octets 4 and 5	Location Area Code according to 3GPP TS 24.008 [35]
+	-- octets 4 and 5	Location Area Code according to TS 3GPP TS 24.008 [35]
 
 -- data types for subscriber management
 
@@ -658,9 +604,9 @@ AgeOfLocationInformation ::= INTEGER (0..32767)
 -- the value represents the elapsed time in minutes since the last
 -- network contact of the mobile station (i.e. the actuality of the
 -- location information).
--- value “0” indicates that the MS is currently in contact with the
+-- value "0" indicates that the MS is currently in contact with the
 --           network
--- value “32767” indicates that the location information is at least
+-- value "32767" indicates that the location information is at least
 --               32767 minutes old
 
 END

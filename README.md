@@ -1,7 +1,7 @@
-asn1-ws
+asn1_otp
 =====
 
-Some wireshark asn.1 files as an OTP app
+The OTP asn.1 test files as an OTP app
 
 Build
 -----
