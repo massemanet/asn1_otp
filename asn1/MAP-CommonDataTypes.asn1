@@ -26,6 +26,11 @@ EXPORTS
 	AlertingPattern,
 	TBCD-STRING,
 
+        -- obsolete things added from wireshark
+        DiameterIdentity,
+        Time,
+        NetworkNodeDiameterAddress,
+
 	-- data types for numbering and identification
 	IMSI,
 	TMSI, 
@@ -609,4 +614,14 @@ AgeOfLocationInformation ::= INTEGER (0..32767)
 -- value "32767" indicates that the location information is at least
 --               32767 minutes old
 
+-- obsolete things added from wireshark
+Time ::= OCTET STRING (SIZE (4))
+    -- Octets are coded according to IETF RFC 3588 [139]
+
+DiameterIdentity ::= OCTET STRING (SIZE(9..255))
+   -- content of DiameterIdentity is defined in IETF RFC 3588 [139]
+
+NetworkNodeDiameterAddress::= SEQUENCE {
+        diameter-Name   [0] DiameterIdentity,
+        diameter-Realm  [1] DiameterIdentity }
 END
